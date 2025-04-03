@@ -941,7 +941,7 @@
     "lint": "eslint .",
     "build": "npm run build:docs && npm run build:binary",
     "build:docs": "typedoc src/pymakr.js --media media",
-    "build:binary": "pkg src/terminal/bin/client.js --out-path src/terminal/bin --compress GZIP",
+    "build:binary": "pkg src/terminal/bin/client.js --targets node16-linux-x64,node16-macos-x64,node16-win-x64 --out-path src/terminal/bin --compress GZIP",
     "pretest.bak": "npm run lint",
     "test": "npm run test:types && npm run test:unit && npm run test:integration",
     "test:types": "tsc --noEmit",

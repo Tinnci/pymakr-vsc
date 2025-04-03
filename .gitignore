@@ -5,3 +5,12 @@ test/workspaces/**
 
 *.vsix
 test/temp
+
+# macOS specific
+**/.DS_Store
+
+# Generated documentation
+docs/
+
+# Generated binaries
+src/terminal/bin/client-*
