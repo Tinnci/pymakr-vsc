@@ -21,7 +21,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '16' # Use Node.js v16 as required by package.json
+          node-version: '18' # Use Node.js v18 for serialport@13 compatibility
 
       - name: Cache Node.js modules
         uses: actions/cache@v4
