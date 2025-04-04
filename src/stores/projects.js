@@ -43,6 +43,7 @@ const createProjectsStore = (pymakr) => {
   const refresh = async () => {
     pymakr.log.debug("Refreshing projects store...");
     const configFiles = await workspace.findFiles("**/pymakr.conf");
+    pymakr.log.debug("Found config files:", configFiles.map(f => f.fsPath)); // 添加日志记录找到的文件路径
     store.get().filter(hasNoConfigFile(configFiles)).forEach(destroy);
     store.update((oldProjects) =>
       [
