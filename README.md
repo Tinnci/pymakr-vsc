@@ -1,10 +1,12 @@
-# Pymakr 2
+# Pymakr 2 (Tinnci Fork)
+
+**This is a fork of the original Pymakr VSCode extension, maintained by Tinnci, with a focus on improving compatibility with ESP32-S3 and potentially other devices.**
 
 ---
 
 ## Getting Started
 
-If you have a Pycom device, you can install this extension and you're ready to go.
+This extension helps you connect and interact with MicroPython devices like ESP32-S3 directly from VS Code.
 
 [GET_STARTED.md](./GET_STARTED.md)
 
@@ -26,13 +28,13 @@ Maintainability and scalability have been key focuses for Pymakr 2. To achieve t
 
 This provides full type completion and type safety without imposing TS on contributors.
 
-[CONTRIBUTE.md](./CONTRIBUTE.md).
+Contributions are welcome! Please refer to [CONTRIBUTE.md](./CONTRIBUTE.md) and consider submitting pull requests to the [Tinnci/pymakr-vsc repository](https://github.com/Tinnci/pymakr-vsc).
 
 ---
 
 ## Support
 
-We hope you won't need it, but should you come across an issue, feel free to open an issue.
+If you encounter any issues, please check existing issues or open a new one on the [Tinnci/pymakr-vsc issue tracker](https://github.com/Tinnci/pymakr-vsc/issues).
 
 To help us help you, please include:
 - a step-by-step walkthrough of what you did.
