@@ -1,0 +1,67 @@
+name: Build and Release VSIX
+
+# Trigger the workflow when a tag starting with 'v' (e.g., v1.0.0, v2.25.3) is pushed
+on:
+  push:
+    tags:
+      - 'v*' # Matches tags like v1.0, v2.25.2, etc.
+
+permissions:
+  contents: write # Needed to create releases and upload assets
+
+jobs:
+  build-release:
+    name: Build and Release
+    runs-on: ubuntu-latest # Use the latest Ubuntu runner
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4 # Checks out the repository code at the specific tag
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '16' # Use Node.js v16 as required by package.json
+
+      - name: Cache Node.js modules
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm # Cache the npm cache directory
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        run: npm ci # Use 'ci' for cleaner installs in CI environments
+
+      # Note: 'npm run package' should handle the build steps internally
+      - name: Build and Package VSIX
+        run: npm run package
+
+      - name: Get VSIX filename
+        id: get_vsix_filename # Give this step an ID to reference its output
+        run: |
+          # Find the .vsix file (assuming only one is built)
+          vsix_file=$(ls *.vsix)
+          echo "Found VSIX: $vsix_file"
+          # Set the filename as an output variable for the step
+          echo "vsix_filename=$vsix_file" >> "$GITHUB_OUTPUT"
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Use the automatically provided token
+        run: |
+          # Create a release associated with the pushed tag
+          # -t specifies the title (using the tag name)
+          # --generate-notes automatically creates release notes from commits since the last tag
+          gh release create ${{ github.ref_name }} \
+            -t ${{ github.ref_name }} \
+            --generate-notes
+
+      - name: Upload VSIX to Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Upload the .vsix file found in the previous step as an asset to the release
+          echo "Uploading ${{ steps.get_vsix_filename.outputs.vsix_filename }} to release ${{ github.ref_name }}"
+          gh release upload ${{ github.ref_name }} "${{ steps.get_vsix_filename.outputs.vsix_filename }}"
