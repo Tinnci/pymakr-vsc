@@ -1,0 +1,15 @@
+{
+    "folders": [
+        {
+            "name": "pymakr-vsc", // Pymakr 扩展项目
+            "path": "." // 相对于 .code-workspace 文件的路径
+        },
+        {
+            "name": "micropython-ctl", // 你的 micropython-ctl fork
+            "path": "../micropython-ctl" // 相对于 .code-workspace 文件的路径
+        }
+    ],
+    "settings": {
+        // 你可以在这里添加工作区特定的设置
+    }
+}
